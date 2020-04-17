@@ -93,8 +93,8 @@ $eventdata = $q->fetch(PDO::FETCH_ASSOC);
 					<div class="controls ">
 					<?php 
 					if ($data['filesize'] > 0) 
-						echo htmlspecialchars('<img  height=5%; width=15%; src="data:image/jpeg;base64,' . 
-							base64_encode( $data['filecontent'] ) . '" />'); 
+						echo '<img  height=5%; width=15%; src="data:image/jpeg;base64,' . 
+							base64_encode( $data['filecontent'] ) . '" />'; 
 					else 
 						echo 'No photo on file.';
 					?><!-- converts to base 64 due to the need to read the binary files code and display img -->

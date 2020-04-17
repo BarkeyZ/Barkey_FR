@@ -43,6 +43,7 @@ if ( !empty($_POST)) { // if $_POST filled then process the form
 	$state = htmlspecialchars($_POST['state']);
 	$zip = htmlspecialchars($_POST['zip']);
 	$password = $_POST['password'];
+	$passwordHash = MD5($password);
 	$title =  $_POST['title'];
 	//$picture = $_POST['picture']; // not used
 	
@@ -119,14 +120,14 @@ if ( !empty($_POST)) { // if $_POST filled then process the form
 			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$sql = "UPDATE fr_persons  set fname = ?, lname = ?, email = ?, mobile = ?, password = ?, title = ?, filename = ?,filesize = ?,filetype = ?,filecontent = ?, address = ?, city = ?, state = ?, zipcode = ? WHERE id = ?";
 			$q = $pdo->prepare($sql);
-			$q->execute(array($fname, $lname, $email, $mobile, $password, $title, $fileName,$fileSize,$fileType,$content, $address, $city, $state, $zip, $id));
+			$q->execute(array($fname, $lname, $email, $mobile, $passwordHash, $title, $fileName,$fileSize,$fileType,$content, $address, $city, $state, $zip, $id));
 			header("Location: fr_persons.php");
 		}
 		else { // otherwise, update all fields EXCEPT file fields
 			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$sql = "UPDATE fr_persons  set fname = ?, lname = ?, email = ?, mobile = ?, password = ?, title = ?, address = ?, city = ?, state = ?, zipcode = ? WHERE id = ?";
 			$q = $pdo->prepare($sql);
-			$q->execute(array($fname, $lname, $email, $mobile, $password, $title, $address, $city, $state, $zip, $id));
+			$q->execute(array($fname, $lname, $email, $mobile, $passwordHash, $title, $address, $city, $state, $zip, $id));
 			header("Location: fr_persons.php");
 		}
 	}
